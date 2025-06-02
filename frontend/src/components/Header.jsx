@@ -1,7 +1,21 @@
-import React from 'react'
-import { assets } from '../assets/assets'
+import React, { useContext } from 'react'
+import { assets } from '../assets/assets';
+import { AppContext } from '../context/AppContext'
+import { useNavigate } from 'react-router-dom';
 
 const Header = () => {
+    
+    const {user, setShowLogin} = useContext(AppContext);
+    const navigate = useNavigate()
+    const onClickHandler = () => {
+        if(user){
+            navigate('/result')
+        }
+        else{
+            setShowLogin(true)
+        }
+    }
+
   return (
     <div>
         <div className='flex flex-col justify-center items-center text-center my-20'>
@@ -11,7 +25,7 @@ const Header = () => {
             </div>
             <h1 className='text-4xl max-w-[300px] sm:text-7xl sm:max-w-[590px] mx-auto mt-10 text-center'> Turn text to <span className='text-blue-600'>image</span>, in seconds.</h1>
             <p className='text-center max-w-xl mx-auto mt-5'> Unleash your creativity with AI. Turn your imagination into virtual art in seconds - just type, and watch the magic happens </p>
-            <button className='sm:text-lg text-white bg-black w-auto mt-8 px-12 py-2.5 flex items-center gap-2 rounded-full'>
+            <button onClick={onClickHandler} className='sm:text-lg text-white bg-black w-auto mt-8 px-12 py-2.5 flex items-center gap-2 rounded-full'>
                 Generate Images
                 <img className='h-6' src = {assets.star_group} alt='' />
             </button>
